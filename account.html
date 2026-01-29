@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlander Grains & Trading Co. - Accounts</title>
+    <link rel="stylesheet" href="account.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="logo-title">Highlander</h1>
+                        <p class="logo-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item active">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h2 class="header-title">Account Management</h2>
+                        <p class="header-subtitle">Manage Employee & Manager Accounts</p>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-time">
+                            <i data-lucide="clock" class="time-icon"></i>
+                            <span id="currentTime"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-blue">
+                        <p class="stat-label">Total Accounts</p>
+                        <p class="stat-value" id="totalAccounts">0</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-up">↑ Active</p>
+                            <p class="stat-subtitle">system users</p>
+                        </div>
+                        <div class="progress-bar progress-bar-blue"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-green">
+                        <p class="stat-label">Managers</p>
+                        <p class="stat-value" id="totalManagers">0</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-up">Admin Access</p>
+                            <p class="stat-subtitle">full privileges</p>
+                        </div>
+                        <div class="progress-bar progress-bar-green"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-orange">
+                        <p class="stat-label">Employees</p>
+                        <p class="stat-value" id="totalEmployees">0</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-neutral">Standard Access</p>
+                            <p class="stat-subtitle">limited privileges</p>
+                        </div>
+                        <div class="progress-bar progress-bar-orange"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-red">
+                        <p class="stat-label">Inactive Accounts</p>
+                        <p class="stat-value" id="totalInactive">0</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-down">⚠️ Disabled</p>
+                            <p class="stat-subtitle">need review</p>
+                        </div>
+                        <div class="progress-bar progress-bar-red"></div>
+                    </div>
+                </div>
+
+                <!-- Account Controls -->
+                <div class="card account-controls">
+                    <div class="controls-container">
+                        <div class="controls-left">
+                            <div class="search-container">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="searchInput" class="search-input" placeholder="Search accounts...">
+                            </div>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="manager">Managers</button>
+                                <button class="filter-btn" data-filter="employee">Employees</button>
+                                <button class="filter-btn" data-filter="inactive">Inactive</button>
+                            </div>
+                        </div>
+                        <div class="controls-right">
+                            <button class="btn-primary" id="btnCreateAccount">
+                                <i data-lucide="user-plus" class="btn-icon"></i>
+                                Create Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accounts Table -->
+                <div class="card table-card">
+                    <div class="table-header">
+                        <h3 class="table-title">User Accounts</h3>
+                        <p class="table-subtitle">Manage all system user accounts</p>
+                    </div>
+                    <div class="table-container">
+                        <table class="accounts-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountsTableBody">
+                                <!-- Accounts will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-footer">
+                        <p class="table-info">Showing <span id="showingCount">0</span> of <span id="totalCount">0</span> accounts</p>
+                        <div class="pagination">
+                            <button class="pagination-btn" id="prevPage" disabled>Previous</button>
+                            <span class="pagination-info">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                            <button class="pagination-btn" id="nextPage" disabled>Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Account Modal -->
+    <div id="accountModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Create New Account</h3>
+                <button class="modal-close" id="closeModal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="accountForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">First Name *</label>
+                        <input type="text" id="firstName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Last Name *</label>
+                        <input type="text" id="lastName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address *</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" id="phone" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role *</label>
+                        <select id="role" class="form-select" required>
+                            <option value="">Select Role</option>
+                            <option value="manager">Manager</option>
+                            <option value="employee">Employee</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Department *</label>
+                        <select id="department" class="form-select" required>
+                            <option value="">Select Department</option>
+                            <option value="sales">Sales</option>
+                            <option value="inventory">Inventory</option>
+                            <option value="procurement">Procurement</option>
+                            <option value="finance">Finance</option>
+                            <option value="logistics">Logistics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username *</label>
+                        <input type="text" id="username" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password *</label>
+                        <input type="password" id="password" class="form-input" required>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label class="form-label">Address</label>
+                        <textarea id="address" class="form-textarea" rows="3"></textarea>
+                    </div>
+                    <div class="form-group form-group-full">
+                        <label class="form-checkbox">
+                            <input type="checkbox" id="isActive" checked>
+                            <span class="checkbox-label">Active Account</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" id="btnCancel">Cancel</button>
+                    <button type="submit" class="btn-confirm" id="btnSubmit">Create Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon modal-icon-danger">
+                <i data-lucide="alert-triangle"></i>
+            </div>
+            <h3 class="modal-title">Delete Account</h3>
+            <p class="modal-text">Are you sure you want to delete this account? This action cannot be undone.</p>
+            <div class="modal-info">
+                <p class="modal-info-text" id="deleteAccountName"></p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" id="btnCancelDelete">Cancel</button>
+                <button class="btn-danger" id="btnConfirmDelete">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="account.js"></script>
+</body>
+
+</html>

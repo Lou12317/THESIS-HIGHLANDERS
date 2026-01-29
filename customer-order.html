@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlander Grains & Trading Co. - Wholesale Orders</title>
+    <link rel="stylesheet" href="customer-order.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="logo.jpg" alt="Highlander Logo" class="header-logo">
+                <div>
+                    <h1 class="header-title">Highlander</h1>
+                    <p class="header-subtitle">GRAINS & TRADING</p>
+                </div>
+            </div>
+            <nav class="header-nav">
+                <a href="#products" class="nav-link">Products</a>
+                <a href="#orders" class="nav-link">My Orders</a>
+                <a href="#account" class="nav-link">Account</a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i data-lucide="shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <h2 class="welcome-title">Welcome back, Juan Dela Cruz</h2>
+                    <p class="welcome-subtitle">Your wholesale account is active • Credit Limit: ₱500,000</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="stat-item">
+                        <i data-lucide="package" class="stat-icon"></i>
+                        <div>
+                            <p class="stat-value">12</p>
+                            <p class="stat-label">Pending Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i data-lucide="truck" class="stat-icon"></i>
+                        <div>
+                            <p class="stat-value">3</p>
+                            <p class="stat-label">In Transit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- Sidebar Filters -->
+            <aside class="sidebar-filters">
+                <div class="filter-card">
+                    <h3 class="filter-title">Categories</h3>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox" checked onchange="filterProducts()">
+                            <span>Rice (45)</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" checked onchange="filterProducts()">
+                            <span>Fertilizer (28)</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" checked onchange="filterProducts()">
+                            <span>Feeds (32)</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" checked onchange="filterProducts()">
+                            <span>Seeds (18)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-card">
+                    <h3 class="filter-title">Availability</h3>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="checkbox" checked onchange="filterProducts()">
+                            <span>In Stock</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="checkbox" onchange="filterProducts()">
+                            <span>Pre-order</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-card">
+                    <h3 class="filter-title">Price Range</h3>
+                    <div class="price-range">
+                        <input type="number" placeholder="Min" class="price-input">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" class="price-input">
+                    </div>
+                    <button class="btn-apply-price">Apply</button>
+                </div>
+
+                <div class="promo-card">
+                    <div class="promo-icon">🎉</div>
+                    <h4 class="promo-title">Bulk Order Discount</h4>
+                    <p class="promo-text">Save up to 15% on orders over 100 sacks</p>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Search and Sort Bar -->
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i data-lucide="search" class="search-icon"></i>
+                        <input type="text" placeholder="Search products..." class="search-input" oninput="searchProducts()">
+                    </div>
+                    <div class="sort-controls">
+                        <label class="sort-label">Sort by:</label>
+                        <select class="sort-select" onchange="sortProducts()">
+                            <option value="popular">Most Popular</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A-Z</option>
+                        </select>
+                        <div class="view-toggle">
+                            <button class="view-btn active" onclick="setView('grid')">
+                                <i data-lucide="grid"></i>
+                            </button>
+                            <button class="view-btn" onclick="setView('list')">
+                                <i data-lucide="list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- Product Card 1 -->
+                    <div class="product-card" data-category="rice" data-price="1850">
+                        <div class="product-badge">Best Seller</div>
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/10b981/ffffff?text=Premium+Rice" alt="Premium Rice">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Premium Dinorado Rice</h3>
+                            <p class="product-description">50kg sack • Grade A Quality</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (234 sacks)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱1,850</p>
+                                    <p class="price-unit">per sack</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱1,700 (100+ sacks)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 2 -->
+                    <div class="product-card" data-category="fertilizer" data-price="2200">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/f97316/ffffff?text=Urea+Fertilizer" alt="Urea Fertilizer">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Urea Fertilizer 46-0-0</h3>
+                            <p class="product-description">50kg bag • Nitrogen Rich</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (156 bags)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱2,200</p>
+                                    <p class="price-unit">per bag</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱2,050 (50+ bags)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 3 -->
+                    <div class="product-card" data-category="feeds" data-price="1450">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/3b82f6/ffffff?text=Hog+Feeds" alt="Hog Feeds">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Premium Hog Grower</h3>
+                            <p class="product-description">50kg sack • Complete Nutrition</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (189 sacks)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱1,450</p>
+                                    <p class="price-unit">per sack</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱1,350 (80+ sacks)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 4 -->
+                    <div class="product-card" data-category="rice" data-price="1650">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/10b981/ffffff?text=Jasmine+Rice" alt="Jasmine Rice">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Jasmine Rice Premium</h3>
+                            <p class="product-description">50kg sack • Fragrant Variety</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (167 sacks)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱1,650</p>
+                                    <p class="price-unit">per sack</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱1,550 (100+ sacks)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 5 -->
+                    <div class="product-card" data-category="feeds" data-price="1550">
+                        <div class="product-badge badge-new">New Arrival</div>
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/3b82f6/ffffff?text=Poultry+Feeds" alt="Poultry Feeds">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Broiler Starter Crumbles</h3>
+                            <p class="product-description">50kg sack • High Protein</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (145 sacks)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱1,550</p>
+                                    <p class="price-unit">per sack</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱1,450 (60+ sacks)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Card 6 -->
+                    <div class="product-card" data-category="fertilizer" data-price="1950">
+                        <div class="product-image">
+                            <img src="https://via.placeholder.com/300x200/f97316/ffffff?text=Complete+Fertilizer" alt="Complete Fertilizer">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Complete Fertilizer 14-14-14</h3>
+                            <p class="product-description">50kg bag • Balanced NPK</p>
+                            <div class="product-stock">
+                                <i data-lucide="check-circle" class="stock-icon"></i>
+                                <span class="stock-text">In Stock (98 bags)</span>
+                            </div>
+                            <div class="product-pricing">
+                                <div class="price-info">
+                                    <p class="product-price">₱1,950</p>
+                                    <p class="price-unit">per bag</p>
+                                </div>
+                                <p class="bulk-price">Bulk: ₱1,800 (40+ bags)</p>
+                            </div>
+                            <div class="product-actions">
+                                <div class="quantity-control">
+                                    <button class="qty-btn" onclick="decrementQty(this)">-</button>
+                                    <input type="number" value="1" min="1" class="qty-input">
+                                    <button class="qty-btn" onclick="incrementQty(this)">+</button>
+                                </div>
+                                <button class="btn-add-cart" onclick="addToCart(this)">
+                                    <i data-lucide="shopping-cart"></i>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <i data-lucide="shopping-bag" class="empty-icon"></i>
+                <p class="empty-text">Your cart is empty</p>
+                <p class="empty-subtext">Add items to get started</p>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">₱0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Discount:</span>
+                    <span id="cartDiscount">₱0</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total:</span>
+                    <span id="cartTotal">₱0</span>
+                </div>
+            </div>
+            <button class="btn-checkout" onclick="proceedToCheckout()">
+                Proceed to Checkout
+                <i data-lucide="arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <script src="customer-order.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Logs - Highlander Grains & Trading</title>
+    <meta name="description" content="System activity logs and offline sync monitoring">
+    <link rel="stylesheet" href="system-logs.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="logo-title">Highlander</h1>
+                        <p class="logo-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item active">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-top">
+                    <div>
+                        <h2 class="page-title">System Logs</h2>
+                        <p class="page-subtitle">Activity Monitoring & Sync Management</p>
+                    </div>
+                    <div class="header-time">
+                        <i data-lucide="clock" class="time-icon"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+        <!-- Dashboard Cards -->
+        <div class="dashboard-grid">
+            <div class="stat-card green">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Total Activities</p>
+                    <h3 class="stat-value" id="totalActivities">1,247</h3>
+                    <span class="stat-change positive">+12% from last week</span>
+                </div>
+            </div>
+
+            <div class="stat-card red">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Pending Sync</p>
+                    <h3 class="stat-value" id="pendingSync">0</h3>
+                    <span class="stat-change neutral">All synced</span>
+                </div>
+            </div>
+
+            <div class="stat-card white">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6 8a2 2 0 11-4 0 2 2 0 014 0zM1.49 15.326a.78.78 0 01-.358-.442 3 3 0 014.308-3.516 6.484 6.484 0 00-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 01-2.07-.655zM16.44 15.98a4.97 4.97 0 002.07-.654.78.78 0 00.357-.442 3 3 0 00-4.308-3.517 6.484 6.484 0 011.907 3.96 2.32 2.32 0 01-.026.654zM18 8a2 2 0 11-4 0 2 2 0 014 0zM5.304 16.19a.844.844 0 01-.277-.71 5 5 0 019.947 0 .843.843 0 01-.277.71A6.975 6.975 0 0110 18a6.974 6.974 0 01-4.696-1.81z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Active Users</p>
+                    <h3 class="stat-value" id="activeUsers">24</h3>
+                    <span class="stat-change positive">6 branches online</span>
+                </div>
+            </div>
+
+            <div class="stat-card white">
+                <div class="stat-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z"/>
+                    </svg>
+                </div>
+                <div class="stat-content">
+                    <p class="stat-label">Last Sync</p>
+                    <h3 class="stat-value" id="lastSync">Just now</h3>
+                    <span class="stat-change neutral">Auto-sync enabled</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="controls-section">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="Search logs by user, action, or branch..." class="search-input">
+            </div>
+
+            <div class="filter-group">
+                <select id="activityFilter" class="filter-select">
+                    <option value="all">All Activities</option>
+                    <option value="login">Login</option>
+                    <option value="sales">Sales</option>
+                    <option value="inventory">Inventory</option>
+                    <option value="purchase">Purchase</option>
+                    <option value="report">Report</option>
+                </select>
+
+                <select id="branchFilter" class="filter-select">
+                    <option value="all">All Branches</option>
+                    <option value="main">Main Office</option>
+                    <option value="branch1">Branch 1 - North</option>
+                    <option value="branch2">Branch 2 - South</option>
+                    <option value="branch3">Branch 3 - East</option>
+                    <option value="branch4">Branch 4 - West</option>
+                </select>
+
+                <select id="dateFilter" class="filter-select">
+                    <option value="today">Today</option>
+                    <option value="week">This Week</option>
+                    <option value="month">This Month</option>
+                    <option value="all">All Time</option>
+                </select>
+
+                <button class="btn-primary" id="exportButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/>
+                        <path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/>
+                    </svg>
+                    Export Logs
+                </button>
+            </div>
+        </div>
+
+        <!-- Logs Table -->
+        <div class="logs-container">
+            <div class="logs-header">
+                <h2>Activity Logs</h2>
+                <div class="logs-actions">
+                    <button class="btn-refresh" id="refreshButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M15.312 11.424a5.5 5.5 0 01-9.201 2.466l-.312-.311h2.433a.75.75 0 000-1.5H3.989a.75.75 0 00-.75.75v4.242a.75.75 0 001.5 0v-2.43l.31.31a7 7 0 0011.712-3.138.75.75 0 00-1.449-.39zm1.23-3.723a.75.75 0 00.219-.53V2.929a.75.75 0 00-1.5 0V5.36l-.31-.31A7 7 0 003.239 8.188a.75.75 0 101.448.389A5.5 5.5 0 0113.89 6.11l.311.31h-2.432a.75.75 0 000 1.5h4.243a.75.75 0 00.53-.219z"/>
+                        </svg>
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="logs-table" id="logsTable">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Branch</th>
+                            <th>Details</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody">
+                        <!-- Logs will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <button class="pagination-btn" id="prevPage">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"/>
+                    </svg>
+                    Previous
+                </button>
+                <div class="pagination-info">
+                    <span>Page <strong id="currentPage">1</strong> of <strong id="totalPages">10</strong></span>
+                </div>
+                <button class="pagination-btn" id="nextPage">
+                    Next
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="system-logs.js"></script>
+</body>
+
+</html>

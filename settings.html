@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlander Grains & Trading Co. - Settings</title>
+    <link rel="stylesheet" href="settings.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="logo-title">Highlander</h1>
+                        <p class="logo-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item active">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h2 class="header-title">Settings</h2>
+                        <p class="header-subtitle">Manage Your Preferences</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Settings Tabs -->
+                <div class="settings-tabs">
+                    <button class="tab-btn active" onclick="switchTab('general')">General</button>
+                    <button class="tab-btn" onclick="switchTab('account')">Account</button>
+                    <button class="tab-btn" onclick="switchTab('notifications')">Notifications</button>
+                    <button class="tab-btn" onclick="switchTab('security')">Security</button>
+                    <button class="tab-btn" onclick="switchTab('system')">System</button>
+                </div>
+
+                <!-- General Settings -->
+                <div id="general" class="tab-content active">
+                    <div class="card">
+                        <h3 class="card-title">Company Information</h3>
+                        <p class="card-description">Update your company details and contact information</p>
+                        
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label class="form-label">Company Name</label>
+                                <input type="text" class="form-input" value="Highlander Grains & Trading Co." placeholder="Enter company name">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Business Type</label>
+                                <select class="form-select">
+                                    <option>Trading Company</option>
+                                    <option>Retail</option>
+                                    <option>Wholesale</option>
+                                    <option>Distribution</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Contact Email</label>
+                                <input type="email" class="form-input" value="admin@highlandergrains.com" placeholder="Enter email">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" value="+63 912 345 6789" placeholder="Enter phone">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Business Address</label>
+                            <textarea class="form-textarea" placeholder="Enter complete address">123 Main Street, Makati City, Metro Manila, Philippines</textarea>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Reset</button>
+                            <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Regional Settings</h3>
+                        <p class="card-description">Configure timezone, currency, and language preferences</p>
+                        
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label class="form-label">Timezone</label>
+                                <select class="form-select">
+                                    <option>Asia/Manila (GMT+8)</option>
+                                    <option>Asia/Tokyo (GMT+9)</option>
+                                    <option>Asia/Singapore (GMT+8)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Currency</label>
+                                <select class="form-select">
+                                    <option>PHP - Philippine Peso (₱)</option>
+                                    <option>USD - US Dollar ($)</option>
+                                    <option>EUR - Euro (€)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Date Format</label>
+                                <select class="form-select">
+                                    <option>MM/DD/YYYY</option>
+                                    <option>DD/MM/YYYY</option>
+                                    <option>YYYY-MM-DD</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Language</label>
+                                <select class="form-select">
+                                    <option>English (US)</option>
+                                    <option>Filipino</option>
+                                    <option>English (UK)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Reset</button>
+                            <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings -->
+                <div id="account" class="tab-content">
+                    <div class="card">
+                        <h3 class="card-title">Profile Information</h3>
+                        <p class="card-description">Update your personal information and profile details</p>
+                        
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" value="Administrator" placeholder="Enter full name">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Position</label>
+                                <select class="form-select">
+                                    <option>System Administrator</option>
+                                    <option>Manager</option>
+                                    <option>Staff</option>
+                                    <option>Supervisor</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-input" value="admin@highlandergrains.com" placeholder="Enter email">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Mobile Number</label>
+                                <input type="tel" class="form-input" value="+63 912 345 6789" placeholder="Enter mobile">
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Cancel</button>
+                            <button class="btn-primary" onclick="saveSettings()">Update Profile</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Change Password</h3>
+                        <p class="card-description">Ensure your account is using a strong password</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" class="form-input" placeholder="Enter current password">
+                        </div>
+
+                        <div class="settings-grid">
+                            <div class="form-group">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-input" placeholder="Enter new password">
+                                <p class="form-hint">Must be at least 8 characters</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" class="form-input" placeholder="Confirm new password">
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Cancel</button>
+                            <button class="btn-primary" onclick="saveSettings()">Update Password</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Settings -->
+                <div id="notifications" class="tab-content">
+                    <div class="card">
+                        <h3 class="card-title">Email Notifications</h3>
+                        <p class="card-description">Choose what notifications you want to receive via email</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Sales Reports</div>
+                                <div class="toggle-description">Receive daily sales summary reports</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Low Stock Alerts</div>
+                                <div class="toggle-description">Get notified when inventory is running low</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Supplier Updates</div>
+                                <div class="toggle-description">Notifications about supplier deliveries and changes</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">System Maintenance</div>
+                                <div class="toggle-description">Important system updates and maintenance schedules</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Push Notifications</h3>
+                        <p class="card-description">Manage browser and mobile push notifications</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Order Updates</div>
+                                <div class="toggle-description">Real-time updates on new orders</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Critical Alerts</div>
+                                <div class="toggle-description">Urgent system alerts and errors</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Team Mentions</div>
+                                <div class="toggle-description">When someone mentions you in comments</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div id="security" class="tab-content">
+                    <div class="card">
+                        <h3 class="card-title">Two-Factor Authentication</h3>
+                        <p class="card-description">Add an extra layer of security to your account</p>
+                        
+                        <div class="alert alert-warning">
+                            <div class="alert-icon">⚠️</div>
+                            <div class="alert-content">
+                                <div class="alert-title">Two-Factor Authentication is Disabled</div>
+                                <div class="alert-message">Protect your account by enabling 2FA. We'll send you a code via SMS or authenticator app.</div>
+                            </div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-primary">Enable 2FA</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Active Sessions</h3>
+                        <p class="card-description">Manage devices where you're currently logged in</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Windows - Chrome Browser</div>
+                                <div class="toggle-description">Makati City, Philippines • Last active: Just now</div>
+                            </div>
+                            <button class="btn-danger">Logout</button>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Mobile - Safari</div>
+                                <div class="toggle-description">Manila, Philippines • Last active: 2 hours ago</div>
+                            </div>
+                            <button class="btn-danger">Logout</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Login History</h3>
+                        <p class="card-description">Recent login attempts to your account</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Successful Login</div>
+                                <div class="toggle-description">January 23, 2026 at 9:45 AM • Makati City</div>
+                            </div>
+                            <span style="color: #10b981; font-weight: 700;">✓ Success</span>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Successful Login</div>
+                                <div class="toggle-description">January 22, 2026 at 2:30 PM • Manila</div>
+                            </div>
+                            <span style="color: #10b981; font-weight: 700;">✓ Success</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Settings -->
+                <div id="system" class="tab-content">
+                    <div class="card">
+                        <h3 class="card-title">Database Settings</h3>
+                        <p class="card-description">Configure database and backup preferences</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Automatic Backups</div>
+                                <div class="toggle-description">Enable daily automatic database backups</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Backup Frequency</label>
+                            <select class="form-select">
+                                <option>Daily at 2:00 AM</option>
+                                <option>Every 12 hours</option>
+                                <option>Weekly</option>
+                                <option>Monthly</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Retention Period</label>
+                            <select class="form-select">
+                                <option>30 days</option>
+                                <option>60 days</option>
+                                <option>90 days</option>
+                                <option>1 year</option>
+                            </select>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Backup Now</button>
+                            <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">Performance Settings</h3>
+                        <p class="card-description">Optimize system performance and resource usage</p>
+                        
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Enable Caching</div>
+                                <div class="toggle-description">Cache frequently accessed data for faster performance</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Optimize Images</div>
+                                <div class="toggle-description">Automatically compress and optimize uploaded images</div>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div class="toggle-info">
+                                <div class="toggle-title">Debug Mode</div>
+                                <div class="toggle-description">Enable detailed error logging (not recommended for production)</div>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title">API Configuration</h3>
+                        <p class="card-description">Manage API keys and integration settings</p>
+                        
+                        <div class="form-group">
+                            <label class="form-label">API Key</label>
+                            <input type="text" class="form-input" value="hgt_••••••••••••••••••••••••" readonly>
+                            <p class="form-hint">Keep your API key secure. Do not share it publicly.</p>
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn-secondary">Regenerate Key</button>
+                            <button class="btn-primary">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">✓</div>
+        <div class="toast-message">Settings saved successfully!</div>
+    </div>
+
+    <script src="settings.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Module - Highlander Grains & Trading Co.</title>
+    <link rel="stylesheet" href="sales.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="sales-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="logo-title">Highlander</h1>
+                        <p class="logo-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item active">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h2 class="header-title">Sales Module</h2>
+                        <p class="header-subtitle">Point of Sale System</p>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-time">
+                            <i data-lucide="clock" class="time-icon"></i>
+                            <span id="currentTime"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <div class="sales-grid">
+                    <!-- Product Selection Panel (Left) -->
+                    <div class="product-panel">
+                        <div class="card">
+                            <h3 class="panel-title">Product Selection</h3>
+
+                            <!-- Search and Filter -->
+                            <div class="search-filter-container">
+                                <div class="search-box">
+                                    <span class="search-icon">🔍</span>
+                                    <input type="text" id="searchInput"
+                                        placeholder="Search Product Name or Scan Barcode..." class="search-input" />
+                                </div>
+                                <select id="categoryFilter" class="category-select">
+                                    <option value="all">All Categories</option>
+                                    <option value="Food Products">Food Products</option>
+                                    <option value="Paperware">Paperware</option>
+                                    <option value="Woodenware">Woodenware</option>
+                                    <option value="Plasticware">Plasticware</option>
+                                    <option value="Reusable Items">Reusable Items</option>
+                                    <option value="Household & Cleaning Products">Household & Cleaning Products</option>
+                                </select>
+                            </div>
+
+                            <!-- Products Table -->
+                            <div class="table-container">
+                                <table class="products-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Price</th>
+                                            <th>Stock</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productsTableBody">
+                                        <!-- Products will be inserted here by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Panel (Right) -->
+                    <div class="cart-panel">
+                        <!-- Cart -->
+                        <div class="card cart-card">
+                            <div class="cart-header">
+                                <h3 class="cart-title">Cart</h3>
+                                <button id="clearCartBtn" class="btn-clear-cart" style="display: none;">
+                                    🗑️ Clear All
+                                </button>
+                            </div>
+
+                            <div id="cartItems" class="cart-items">
+                                <div class="cart-empty">
+                                    Cart is empty. Add products to start.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summary -->
+                        <div id="summaryCard" class="card summary-card" style="display: none;">
+                            <h3 class="summary-title">Order Summary</h3>
+
+                            <div class="summary-details">
+                                <div class="summary-row">
+                                    <span class="summary-label">Subtotal</span>
+                                    <span id="subtotalAmount" class="summary-value">₱0</span>
+                                </div>
+                                <div class="summary-row">
+                                    <span class="summary-label">Discount</span>
+                                    <span id="discountAmount" class="summary-value discount-value">-₱0</span>
+                                </div>
+                                <div id="deliveryFeeRow" class="summary-row" style="display: none;">
+                                    <span class="summary-label">Delivery Fee</span>
+                                    <span id="deliveryFeeAmount" class="summary-value">₱0</span>
+                                </div>
+                                <div class="summary-total">
+                                    <span class="total-label">Grand Total</span>
+                                    <span id="grandTotal" class="total-value">₱0</span>
+                                </div>
+                            </div>
+
+                            <div class="payment-method">
+                                <label class="payment-label">Payment Method</label>
+                                <div class="payment-options">
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="cash" checked />
+                                        <span>Cash</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="gcash" />
+                                        <span>GCash</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="bank" />
+                                        <span>Bank Transfer</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button id="submitSaleBtn" class="btn-submit-sale">Submit Sale</button>
+                                <button id="scheduleDeliveryBtn" class="btn-schedule-delivery">Schedule
+                                    Delivery</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delivery Modal -->
+    <div id="deliveryModal" class="modal">
+        <div class="modal-content delivery-modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule Delivery</h3>
+                <button id="closeModalBtn" class="btn-close-modal">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Customer Name</label>
+                    <input type="text" id="customerName" class="form-input" placeholder="Enter customer name" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Delivery Address</label>
+                    <textarea id="deliveryAddress" class="form-textarea" placeholder="Enter complete address"
+                        rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Contact Number</label>
+                    <input type="text" id="contactNumber" class="form-input" placeholder="09XX XXX XXXX" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Delivery Date</label>
+                    <input type="date" id="deliveryDate" class="form-input" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Delivery Fee</label>
+                    <input type="number" id="deliveryFeeInput" class="form-input" value="500" placeholder="500" />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="cancelDeliveryBtn" class="btn-cancel">Cancel</button>
+                <button id="confirmDeliveryBtn" class="btn-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="sales.js"></script>
+</body>
+
+</html>

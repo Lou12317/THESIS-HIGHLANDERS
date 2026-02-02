@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Highlander Grains & Trading Co. - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="logo-title">Highlander</h1>
+                        <p class="logo-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <div class="header-left">
+                        <h2 class="header-title">Welcome, Administrator</h2>
+                        <p class="header-subtitle">Dashboard</p>
+                    </div>
+                    <div class="header-right">
+                        <div class="header-time">
+                            <i data-lucide="clock" class="time-icon"></i>
+                            <span id="currentTime"></span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-blue">
+                        <p class="stat-label">Total Sales</p>
+                        <p class="stat-value">₱2.8M</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-up">↑ 12.5%</p>
+                            <p class="stat-subtitle">vs last month</p>
+                        </div>
+                        <div class="progress-bar progress-bar-blue"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-orange">
+                        <p class="stat-label">Low Stock Items</p>
+                        <p class="stat-value">233</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-down">⚠️ Alert</p>
+                            <p class="stat-subtitle">need attention</p>
+                        </div>
+                        <div class="progress-bar progress-bar-orange"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-green">
+                        <p class="stat-label">Active Users</p>
+                        <p class="stat-value">847</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-up">+25%</p>
+                            <p class="stat-subtitle">this week</p>
+                        </div>
+                        <div class="progress-bar progress-bar-green"></div>
+                    </div>
+
+                    <div class="stat-card stat-card-red">
+                        <p class="stat-label">Pending Deliveries</p>
+                        <p class="stat-value">156</p>
+                        <div class="stat-footer">
+                            <p class="stat-trend stat-trend-neutral">12 Today</p>
+                            <p class="stat-subtitle">due deadline</p>
+                        </div>
+                        <div class="progress-bar progress-bar-red"></div>
+                    </div>
+                </div>
+
+                <!-- Report Controls -->
+                <div class="card report-controls">
+                    <div class="controls-container">
+                        <div class="controls-left">
+                            <span class="filter-label">Filter by:</span>
+                            <div class="filter-buttons">
+                                <button class="filter-btn active" onclick="setFilter('month')">Month</button>
+                                <button class="filter-btn" onclick="setFilter('quarter')">Quarter</button>
+                                <button class="filter-btn" onclick="setFilter('year')">Year</button>
+                            </div>
+                            <button class="btn-advanced">🔍 Advanced</button>
+                        </div>
+                        <div class="controls-right">
+                            <button class="btn-primary" onclick="showModal()">⬇️ Download PDF</button>
+                            <button class="btn-secondary">📄 Export Excel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <div class="card chart-card">
+                        <div class="chart-header">
+                            <div class="chart-header-left">
+                                <h3 class="chart-title">Sales Performance</h3>
+                                <p class="chart-subtitle">Actual vs Target</p>
+                            </div>
+                            <select class="chart-select">
+                                <option>Monthly</option>
+                                <option>Weekly</option>
+                                <option>Daily</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card chart-card">
+                        <h3 class="chart-title">Inventory Distribution</h3>
+                        <p class="chart-subtitle">By Category</p>
+                        <div class="chart-container">
+                            <canvas id="inventoryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card chart-card">
+                        <h3 class="chart-title">Supplier Performance</h3>
+                        <p class="chart-subtitle">Deliveries This Month</p>
+                        <div class="chart-container">
+                            <canvas id="supplierChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card chart-card">
+                        <h3 class="chart-title">Transaction Types</h3>
+                        <p class="chart-subtitle">Sales Distribution</p>
+                        <div class="chart-container">
+                            <canvas id="transactionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="quick-links-grid">
+                    <div class="card quick-link-card">
+                        <div class="quick-link-arrow">→</div>
+                        <h4 class="quick-link-title">Sales Module</h4>
+                        <p class="quick-link-desc">Manage orders and track performance</p>
+                        <div class="quick-link-badge-container">
+                            <span class="quick-link-badge">3 updates</span>
+                        </div>
+                    </div>
+
+                    <div class="card quick-link-card">
+                        <div class="quick-link-arrow">→</div>
+                        <h4 class="quick-link-title">Inventory</h4>
+                        <p class="quick-link-desc">Track stock levels and warehouses</p>
+                        <div class="quick-link-badge-container">
+                            <span class="quick-link-badge">3 updates</span>
+                        </div>
+                    </div>
+
+                    <div class="card quick-link-card">
+                        <div class="quick-link-arrow">→</div>
+                        <h4 class="quick-link-title">Suppliers</h4>
+                        <p class="quick-link-desc">Manage supplier relationships</p>
+                        <div class="quick-link-badge-container">
+                            <span class="quick-link-badge">3 updates</span>
+                        </div>
+                    </div>
+
+                    <div class="card quick-link-card">
+                        <div class="quick-link-arrow">→</div>
+                        <h4 class="quick-link-title">Transactions</h4>
+                        <p class="quick-link-desc">View and process payments</p>
+                        <div class="quick-link-badge-container">
+                            <span class="quick-link-badge">3 updates</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <span>📄</span>
+            </div>
+            <h3 class="modal-title">Generate Report</h3>
+            <p class="modal-text">Generate Sales Report for October 2025?</p>
+            <div class="modal-info">
+                <p class="modal-info-text">Report Type: Sales Overview</p>
+                <p class="modal-info-text">Period: October 1-15, 2025</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="hideModal()">Cancel</button>
+                <button class="btn-confirm" onclick="confirmExport()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

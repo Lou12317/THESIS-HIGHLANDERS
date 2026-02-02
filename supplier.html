@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Management - Highlander Grains & Trading</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="supplier.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="brand-title">Highlander</h1>
+                        <p class="brand-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item">Inventory</a>
+                <a href="supplier.html" class="nav-item active">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-top">
+                    <div>
+                        <h2 class="page-title">Supplier Management</h2>
+                        <p class="page-subtitle">VENDOR & PURCHASE CONTROL</p>
+                    </div>
+                    <div class="header-time">
+                        <i data-lucide="clock" class="time-icon"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button class="tab-btn tab-btn-active" data-tab="dashboard">Dashboard</button>
+                    <button class="tab-btn" data-tab="suppliers">Supplier Directory</button>
+                    <button class="tab-btn" data-tab="orders">Purchase Orders</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Tab -->
+                <div id="dashboardTab" class="tab-content tab-content-active">
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <p class="stat-label">Total Suppliers</p>
+                                <i data-lucide="package" class="stat-icon stat-icon-blue"></i>
+                            </div>
+                            <p class="stat-value" id="totalSuppliers">5</p>
+                            <p class="stat-detail stat-detail-green" id="activeSuppliers">0 Active</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <p class="stat-label">Purchase Orders</p>
+                                <i data-lucide="truck" class="stat-icon stat-icon-purple"></i>
+                            </div>
+                            <p class="stat-value" id="totalOrders">5</p>
+                            <p class="stat-detail stat-detail-purple">This month</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <p class="stat-label">Pending Orders</p>
+                                <i data-lucide="alert-circle" class="stat-icon stat-icon-orange"></i>
+                            </div>
+                            <p class="stat-value stat-value-orange" id="pendingOrders">0</p>
+                            <p class="stat-detail stat-detail-red" id="overdueOrders">0 Overdue</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-header">
+                                <p class="stat-label">Total Value</p>
+                                <i data-lucide="trending-up" class="stat-icon stat-icon-green"></i>
+                            </div>
+                            <p class="stat-value" id="totalValue">₱0K</p>
+                            <p class="stat-detail stat-detail-green">This month</p>
+                        </div>
+                    </div>
+
+                    <!-- Alerts Section -->
+                    <div id="alertsSection" class="alerts-container">
+                        <h3 class="alerts-title">Notifications & Alerts</h3>
+                        <div id="alertsList" class="alerts-list">
+                            <!-- Alerts will be inserted here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Purchase Orders -->
+                    <div class="recent-orders-container">
+                        <div class="section-header">
+                            <h3 class="section-title">Recent Purchase Orders</h3>
+                            <button class="view-all-btn" onclick="switchTab('orders')">
+                                View All <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="dashboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Supplier</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersTable">
+                                    <!-- Recent orders will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suppliers Tab -->
+                <div id="suppliersTab" class="tab-content">
+                    <!-- Filters and Actions -->
+                    <div class="filter-section">
+                        <div class="filter-controls">
+                            <div class="search-box">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="supplierSearchInput"
+                                    placeholder="Search by supplier name or ID...">
+                            </div>
+
+                            <select id="categoryFilter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="Food Products">Food Products</option>
+                                <option value="Paperware">Paperware</option>
+                                <option value="Woodenware">Woodenware</option>
+                                <option value="Plasticware">Plasticware</option>
+                                <option value="Reusable Items">Reusable Items</option>
+                                <option value="Household & Cleaning Products">Household & Cleaning Products</option>
+                            </select>
+
+                            <select id="statusFilter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+
+                        <button id="addSupplierBtn" class="btn-primary">
+                            <i data-lucide="plus"></i>
+                            <span>Add New Supplier</span>
+                        </button>
+                    </div>
+
+                    <!-- Suppliers Table -->
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table class="suppliers-table">
+                                <thead>
+                                    <tr>
+                                        <th>Supplier ID</th>
+                                        <th>Supplier Name</th>
+                                        <th>Category</th>
+                                        <th>Contact Info</th>
+                                        <th>Rating</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="suppliersTableBody">
+                                    <!-- Supplier rows will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Purchase Orders Tab -->
+                <div id="ordersTab" class="tab-content">
+                    <!-- Filters -->
+                    <div class="filter-section">
+                        <div class="filter-controls-simple">
+                            <div class="search-box">
+                                <i data-lucide="search" class="search-icon"></i>
+                                <input type="text" id="orderSearchInput"
+                                    placeholder="Search by order ID or supplier...">
+                            </div>
+
+                            <select id="orderStatusFilter" class="filter-select">
+                                <option value="all">All Status</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Overdue">Overdue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Orders Table -->
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Supplier</th>
+                                        <th>Date Ordered</th>
+                                        <th>Expected Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTableBody">
+                                    <!-- Order rows will be inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="ordersEmptyState" class="empty-state" style="display: none;">
+                            <i data-lucide="truck" class="empty-icon"></i>
+                            <p>No orders found matching your filters.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Supplier Modal -->
+    <div id="supplierModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="supplierModalTitle" class="modal-title">Add New Supplier</h3>
+                <button id="supplierModalClose" class="modal-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Supplier ID</label>
+                        <input type="text" id="formSupplierId" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supplier Name *</label>
+                        <input type="text" id="formSupplierName" class="form-input" placeholder="Enter supplier name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="formCategory" class="form-input">
+                            <option value="Food Products">Food Products</option>
+                            <option value="Paperware">Paperware</option>
+                            <option value="Woodenware">Woodenware</option>
+                            <option value="Plasticware">Plasticware</option>
+                            <option value="Reusable Items">Reusable Items</option>
+                            <option value="Household & Cleaning Products">Household & Cleaning Products</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Person *</label>
+                        <input type="text" id="formContactPerson" class="form-input" placeholder="Contact person name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Number *</label>
+                        <input type="text" id="formContactNumber" class="form-input" placeholder="09XX-XXX-XXXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="formEmail" class="form-input" placeholder="email@example.com">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>Address</label>
+                        <textarea id="formAddress" class="form-input" placeholder="Complete address"
+                            rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="formStatus" class="form-input">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rating (1-5)</label>
+                        <input type="number" id="formRating" class="form-input" min="1" max="5" value="5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="supplierModalCancel" class="btn-secondary">Cancel</button>
+                <button id="supplierModalSubmit" class="btn-primary">Add Supplier</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="supplier.js"></script>
+</body>
+
+</html>

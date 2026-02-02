@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management - Highlander Grains & Trading</title>
+    <link rel="stylesheet" href="inventory.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <img src="logo.jpg" alt="Highlander Logo" class="logo-image">
+                    <div>
+                        <h1 class="brand-title">Highlander</h1>
+                        <p class="brand-subtitle">GRAINS & TRADING</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">Dashboard</a>
+                <a href="sales.html" class="nav-item">Sales</a>
+                <a href="inventory.html" class="nav-item active">Inventory</a>
+                <a href="supplier.html" class="nav-item">Suppliers</a>
+                <a href="system-logs.html" class="nav-item">System Logs</a>
+                <a href="account.html" class="nav-item">Accounts</a>
+                <a href="settings.html" class="nav-item">Settings</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="window.location.href='login.html'">Logout</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h2 class="page-title">Inventory Management</h2>
+                    <p class="page-subtitle">Stock Control & Monitoring</p>
+                </div>
+                <div class="header-time">
+                    <i data-lucide="clock" class="time-icon"></i>
+                    <span id="currentTime" ></span>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <p class="stat-label">Total Products</p>
+                            <i data-lucide="package" class="stat-icon stat-icon-blue"></i>
+                        </div>
+                        <p class="stat-value" id="totalProducts">8</p>
+                        <p class="stat-detail stat-detail-blue" id="totalUnits">0 total units</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <p class="stat-label">Low Stock Alert</p>
+                            <i data-lucide="alert-triangle" class="stat-icon stat-icon-orange"></i>
+                        </div>
+                        <p class="stat-value stat-value-orange" id="lowStockCount">0</p>
+                        <p class="stat-detail stat-detail-orange">Items need reordering</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <p class="stat-label">Total Value</p>
+                            <i data-lucide="trending-up" class="stat-icon stat-icon-green"></i>
+                        </div>
+                        <p class="stat-value" id="totalValue">₱0.00M</p>
+                        <p class="stat-detail stat-detail-green">Inventory worth</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <p class="stat-label">Categories</p>
+                            <i data-lucide="trending-down" class="stat-icon stat-icon-purple"></i>
+                        </div>
+                        <p class="stat-value">3</p>
+                        <p class="stat-detail stat-detail-purple">Active categories</p>
+                    </div>
+                </div>
+
+                <!-- Filters and Actions -->
+                <div class="filter-section">
+                    <div class="filter-controls">
+                        <div class="search-box">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" id="searchInput" placeholder="Search by product name or ID...">
+                        </div>
+
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="all">All Categories</option>
+                            <option value="Food Products">Food Products</option>
+                            <option value="Paperware">Paperware</option>
+                            <option value="Woodenware">Woodenware</option>
+                            <option value="Plasticware">Plasticware</option>
+                            <option value="Reusable Items">Reusable Items</option>
+                            <option value="Household & Cleaning Products">Household & Cleaning Products</option>
+                        </select>
+
+                        <select id="stockFilter" class="filter-select">
+                            <option value="all">All Stock Levels</option>
+                            <option value="low">Low Stock Only</option>
+                        </select>
+                    </div>
+
+                    <button id="addNewBtn" class="btn-primary">
+                        <i data-lucide="plus"></i>
+                        <span>Add New Item</span>
+                    </button>
+                </div>
+
+                <!-- Inventory Table -->
+                <div class="table-container">
+                    <div class="table-wrapper">
+                        <table class="inventory-table">
+                            <thead>
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                                <!-- Table rows will be inserted here by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <i data-lucide="package" class="empty-icon"></i>
+                        <p>No items found matching your filters.</p>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="table-footer">
+                        <div class="table-info">
+                            Showing <span class="info-bold" id="showingCount">0</span> of
+                            <span class="info-bold" id="totalCount">0</span> items
+                        </div>
+                        <div class="pagination">
+                            <button class="pagination-btn">Previous</button>
+                            <button class="pagination-btn pagination-btn-active">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle" class="modal-title">Add New Item</h3>
+                <button id="modalClose" class="modal-close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Product ID</label>
+                        <input type="text" id="formProductId" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Name *</label>
+                        <input type="text" id="formProductName" class="form-input" placeholder="Enter product name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select id="formCategory" class="form-input">
+                            <option value="Food Products">Food Products</option>
+                            <option value="Paperware">Paperware</option>
+                            <option value="Woodenware">Woodenware</option>
+                            <option value="Plasticware">Plasticware</option>
+                            <option value="Reusable Items">Reusable Items</option>
+                            <option value="Household & Cleaning Products">Household & Cleaning Products</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <select id="formUnit" class="form-input">
+                            <option value="sacks">Sacks</option>
+                            <option value="bags">Bags</option>
+                            <option value="boxes">Boxes</option>
+                            <option value="pieces">Pieces</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quantity *</label>
+                        <input type="number" id="formQuantity" class="form-input" min="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price (₱) *</label>
+                        <input type="number" id="formPrice" class="form-input" min="0" step="0.01" value="0">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label>Reorder Level</label>
+                        <input type="number" id="formReorderLevel" class="form-input" min="0" value="20"
+                            placeholder="Minimum quantity before reordering">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modalCancel" class="btn-secondary">Cancel</button>
+                <button id="modalSubmit" class="btn-primary">Add Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="inventory.js"></script>
+</body>
+
+</html>
